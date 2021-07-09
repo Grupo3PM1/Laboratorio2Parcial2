@@ -61,8 +61,7 @@ public class ActivityPhoto extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PETICION_ACCESO_CAMARA);
         }
-        else
-        {
+        else {
             dispatchTakePictureIntent2();
         }
     }
