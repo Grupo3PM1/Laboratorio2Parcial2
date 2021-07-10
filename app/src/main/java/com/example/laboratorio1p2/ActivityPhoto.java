@@ -40,6 +40,7 @@ public class ActivityPhoto extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
+
         IVPhoto = (ImageView) findViewById(R.id.imageViewPhoto);
 
         Button button2 = (Button) findViewById(R.id.button2);
