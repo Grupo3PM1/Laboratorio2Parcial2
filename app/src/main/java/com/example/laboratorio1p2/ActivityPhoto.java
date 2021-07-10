@@ -57,11 +57,18 @@ public class ActivityPhoto extends AppCompatActivity {
         btn_foto = (Button)findViewById(R.id.btn_foto);
         btn_save = (Button)findViewById(R.id.btn_save);
 
-        Button button2 = (Button) findViewById(R.id.btn_foto);
-        button2.setOnClickListener(new View.OnClickListener() {
+        btn_save.setEnabled(false);
+
+
+        btn_foto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { Permisos();}
+        });
+
+        btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Permisos();
+                savefoto();
             }
         });
     }
@@ -79,6 +86,7 @@ public class ActivityPhoto extends AppCompatActivity {
         else {
             dispatchTakePictureIntent2();
         }
+
     }
 
     @Override
@@ -123,6 +131,9 @@ public class ActivityPhoto extends AppCompatActivity {
         if (i > 0) {
             extension = currentPhotoPath.substring(i+1);
         }
+
+        btn_save.setEnabled(true);
+
     }
 
     public void savefoto(){
@@ -146,10 +157,13 @@ public class ActivityPhoto extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "IMAGEN INGRESADA: " + resultado.toString(), Toast.LENGTH_LONG).show();
             img.setImageResource(R.mipmap.ic_launcher);
+
         }
         catch (Exception e){
             e.printStackTrace();
         }
+
+        ClearScreen();
 
     }
 
@@ -208,4 +222,9 @@ public class ActivityPhoto extends AppCompatActivity {
             }
         }
     }
+
+    private void ClearScreen() {
+        descripcion.setText("");
+    }
+
 }
