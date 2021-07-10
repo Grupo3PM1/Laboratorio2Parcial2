@@ -22,12 +22,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         Button btnvideoir = (Button) findViewById(R.id.btnirvideo);
+        btnvideoir.setEnabled(false);
         btnvideoir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(getApplicationContext(), ActivityVideo.class);
+                startActivity(intent);*/
+
             }
         });
     }

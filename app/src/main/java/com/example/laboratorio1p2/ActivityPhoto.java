@@ -1,6 +1,5 @@
 package com.example.laboratorio1p2;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -8,20 +7,25 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
-import android.content.Context;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.media.Image;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.laboratorio1p2.transacciones.Transacciones;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -34,16 +38,26 @@ public class ActivityPhoto extends AppCompatActivity {
     String currentPhotoPath;
 
     static final int PETICION_ACCESO_CAMARA = 100;
-    ImageView IVPhoto;
+    ImageView img;
+    Button btn_foto, btn_save;
+    EditText descripcion;
+
+    String extension, hora;
+    File image;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
 
-        IVPhoto = (ImageView) findViewById(R.id.imageViewPhoto);
 
-        Button button2 = (Button) findViewById(R.id.button2);
+        img = (ImageView)findViewById(R.id.img);
+        descripcion = (EditText)findViewById(R.id.txt_descrip);
+        btn_foto = (Button)findViewById(R.id.btn_foto);
+        btn_save = (Button)findViewById(R.id.btn_save);
+
+        Button button2 = (Button) findViewById(R.id.btn_foto);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +107,7 @@ public class ActivityPhoto extends AppCompatActivity {
             ObjImagen.setImageBitmap(imageBitmap);
             */
             File foto = new File(currentPhotoPath);
-            IVPhoto.setImageURI(Uri.fromFile(foto));
+            img.setImageURI(Uri.fromFile(foto));
             galleryAddPic();
         }
     }
@@ -104,15 +118,58 @@ public class ActivityPhoto extends AppCompatActivity {
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
+
+        int i = currentPhotoPath.lastIndexOf('.');
+        if (i > 0) {
+            extension = currentPhotoPath.substring(i+1);
+        }
+    }
+
+    public void savefoto(){
+
+
+        SQLiteConexion conexion = new SQLiteConexion(this, Transacciones.NameDataBase, null, 1);
+        SQLiteDatabase db = conexion.getWritableDatabase();
+
+
+        try{
+
+            ContentValues valores = new ContentValues();
+            valores.put(Transacciones.name, image.getName());
+            valores.put(Transacciones.horafecha, hora);
+            valores.put(Transacciones.formato, extension);
+            valores.put(Transacciones.size, image.length());
+            valores.put(Transacciones.image, imageViewToByte(img));
+            valores.put(Transacciones.descripcion, descripcion.getText().toString());
+
+            Long resultado = db.insert(Transacciones.tabla_fotos, Transacciones.id, valores);
+
+            Toast.makeText(getApplicationContext(), "IMAGEN INGRESADA: " + resultado.toString(), Toast.LENGTH_LONG).show();
+            img.setImageResource(R.mipmap.ic_launcher);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public static byte[]  imageViewToByte(ImageView img) {
+        Bitmap bitmap = ((BitmapDrawable)img.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
     }
 
     private File createImageFile() throws IOException {
         // Create an image file name
+        hora = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         //File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
+        image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
