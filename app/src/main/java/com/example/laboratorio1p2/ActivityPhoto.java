@@ -39,7 +39,7 @@ public class ActivityPhoto extends AppCompatActivity {
 
     static final int PETICION_ACCESO_CAMARA = 100;
     ImageView img;
-    Button btn_foto, btn_save;
+    Button btn_foto, btn_save, btn_gallery;
     EditText descripcion;
 
     String extension, hora;
@@ -56,6 +56,7 @@ public class ActivityPhoto extends AppCompatActivity {
         descripcion = (EditText)findViewById(R.id.txt_descrip);
         btn_foto = (Button)findViewById(R.id.btn_foto);
         btn_save = (Button)findViewById(R.id.btn_save);
+        btn_gallery = (Button)findViewById(R.id.btn_gallery);
 
         btn_save.setEnabled(false);
 
@@ -69,6 +70,14 @@ public class ActivityPhoto extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 savefoto();
+            }
+        });
+
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), GalleryActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -40,7 +40,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Laboratorio1P2">
-        <activity android:name=".ActivityVideo"></activity>
+        <activity android:name=".GalleryActivity"></activity>
+        <activity android:name=".ActivityVideo" />
         <activity android:name=".ActivityPhoto" />
         <activity android:name=".MainActivity">
             <intent-filter>

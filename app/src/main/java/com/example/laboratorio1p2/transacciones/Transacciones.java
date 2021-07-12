@@ -17,7 +17,15 @@ public class Transacciones {
 
 
     /* tablas - CREATE , DROP */
-    public static final String CreateTableFotos= "CREATE TABLE tbl_fotos( id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, horafecha DATE, formato TEXT, size BIGINT, image BLOB, descripcion TEXT)";
+    public static final String CreateTableFotos= "CREATE TABLE tbl_fotos" +
+            "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "name TEXT, " +
+            "horafecha DATE, " +
+            "formato TEXT, " +
+            "size BIGINT, " +
+            "image BLOB, " +
+            "descripcion TEXT)";
+
     public static final String DropTableFotos = "DROP TABLE IF EXISTS tbl_fotos";
 
 
