@@ -73,7 +73,7 @@ public class ActivityPhoto extends AppCompatActivity {
             }
         });
 
-        btn_save.setOnClickListener(new View.OnClickListener() {
+        btn_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), GalleryActivity.class);
@@ -147,10 +147,8 @@ public class ActivityPhoto extends AppCompatActivity {
 
     public void savefoto(){
 
-
         SQLiteConexion conexion = new SQLiteConexion(this, Transacciones.NameDataBase, null, 1);
         SQLiteDatabase db = conexion.getWritableDatabase();
-
 
         try{
 

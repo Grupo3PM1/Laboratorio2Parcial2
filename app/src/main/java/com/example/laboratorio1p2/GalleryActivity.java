@@ -17,20 +17,19 @@ import java.util.List;
 public class GalleryActivity extends AppCompatActivity {
 
     SQLiteConexion conexion;
-    private RecyclerView recycler;
-    private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager lManager;
+
+    RecyclerView recycler;
+    RecyclerView.Adapter adapter;
+    RecyclerView.LayoutManager lManager;
 
     ArrayList<Photograh> galeria;
     List<Photograh> items;
+    ArrayList<String> ArregloFotos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
-
-        // Inicializar Animes
-        GalleryList();
 
         // Obtener el Recycler
         recycler = (RecyclerView) findViewById(R.id.reciclador);
@@ -40,10 +39,14 @@ public class GalleryActivity extends AppCompatActivity {
         lManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(lManager);
 
+        // Inicializar Imagenes
+        ObtenerListaPersonas();
+
         // Crear un nuevo adaptador
         adapter = new ImageAdapter(items);
         recycler.setAdapter(adapter);
     }
+
 
     private void ObtenerListaPersonas() {
         SQLiteDatabase db = conexion.getReadableDatabase();
@@ -52,7 +55,7 @@ public class GalleryActivity extends AppCompatActivity {
 
         Cursor cursor = db.rawQuery("SELECT * FROM " + Transacciones.tabla_fotos, null);
 
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             Items = new Photograh();
             Items.setId(cursor.getInt(0));
             Items.setName(cursor.getString(1));
@@ -63,14 +66,15 @@ public class GalleryActivity extends AppCompatActivity {
             Items.setDescripcion(cursor.getString(6));
 
             galeria.add(Items);
-
         }
+
         cursor.close();
         GalleryList();
     }
 
     private void GalleryList() {
 
+        ArregloFotos = new ArrayList<String>();
         items = new ArrayList<>();
 
         for (int i = 0;  i < galeria.size(); i++){
