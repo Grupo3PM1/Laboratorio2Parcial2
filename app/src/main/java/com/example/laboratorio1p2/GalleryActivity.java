@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.example.laboratorio1p2.tabla.Photograh;
+import com.example.laboratorio1p2.ImageAdapter;
 import com.example.laboratorio1p2.transacciones.Transacciones;
 
 import java.util.ArrayList;
@@ -19,8 +20,6 @@ public class GalleryActivity extends AppCompatActivity {
     SQLiteConexion conexion;
 
     RecyclerView recycler;
-    RecyclerView.Adapter adapter;
-    RecyclerView.LayoutManager lManager;
 
     ArrayList<Photograh> galeria;
     List<Photograh> items;
@@ -31,24 +30,25 @@ public class GalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
-        // Obtener el Recycler
-        recycler = (RecyclerView) findViewById(R.id.reciclador);
-        recycler.setHasFixedSize(true);
-
-        // Usar un administrador para LinearLayout
-        lManager = new LinearLayoutManager(this);
-        recycler.setLayoutManager(lManager);
+        galeria = new ArrayList<>();
 
         // Inicializar Imagenes
-        ObtenerListaPersonas();
+        GetListGallery();
+
+        // Obtener el Recycler
+        recycler = (RecyclerView) findViewById(R.id.reciclador);
+
+        // Usar un administrador para LinearLayout
+        recycler.setLayoutManager(new LinearLayoutManager(this));
 
         // Crear un nuevo adaptador
-        adapter = new ImageAdapter(items);
+        ImageAdapter adapter = new ImageAdapter(items);
         recycler.setAdapter(adapter);
     }
 
 
-    private void ObtenerListaPersonas() {
+    private void GetListGallery() {
+        SQLiteConexion conexion = new SQLiteConexion(this, Transacciones.NameDataBase, null, 1);
         SQLiteDatabase db = conexion.getReadableDatabase();
         Photograh Items = null;
         galeria = new ArrayList<Photograh>();
