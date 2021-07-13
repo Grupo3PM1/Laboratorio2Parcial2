@@ -57,8 +57,8 @@ public class GalleryActivity extends AppCompatActivity {
 
         while (cursor.moveToNext()) {
             Items = new Photograh();
-            Items.setImage(cursor.getInt(0));
-            Items.setDescripcion(cursor.getString(1));
+            Items.setImage(cursor.getBlob(5));
+            Items.setDescripcion(cursor.getString(6));
 
             galeria.add(Items);
         }

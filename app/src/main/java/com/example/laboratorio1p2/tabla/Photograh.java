@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 public class Photograh {
 
     private Integer id;
-    private Integer image;
+    private byte[] image;
     private String name;
     private String formato;
     private String descripcion;
@@ -15,11 +15,11 @@ public class Photograh {
 
     public  Photograh(){}
 
-    public Integer getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Integer image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -31,7 +31,7 @@ public class Photograh {
         this.descripcion = descripcion;
     }
 
-    public Photograh (Integer image, String descripcion) {
+    public Photograh (byte[] image, String descripcion) {
 
         this.image = image;
         this.descripcion = descripcion;

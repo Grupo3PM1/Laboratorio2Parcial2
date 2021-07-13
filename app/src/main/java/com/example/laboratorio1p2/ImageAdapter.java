@@ -1,5 +1,7 @@
 package com.example.laboratorio1p2;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +30,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     @Override
     public void onBindViewHolder(ImageViewHolder viewHolder, int i) {
+        //Bitmap bitmap = BitmapFactory.decodeResource(items.get(i));
+        Bitmap BMP = BitmapFactory.decodeByteArray(items.get(i).getImage(), 0,items.get(i).getImage().length);
 
-        viewHolder.imagen.setImageResource(items.get(i).getImage());
+
+        viewHolder.imagen.setImageBitmap(BMP);
         viewHolder.descripcion.setText("Descripcion: "+String.valueOf(items.get(i).getDescripcion()));
     }
 
