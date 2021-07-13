@@ -57,13 +57,8 @@ public class GalleryActivity extends AppCompatActivity {
 
         while (cursor.moveToNext()) {
             Items = new Photograh();
-            Items.setId(cursor.getInt(0));
-            Items.setName(cursor.getString(1));
-            Items.setHorafecha(cursor.getBlob(2));
-            Items.setFormato(cursor.getString(3));
-            Items.setSize(cursor.getBlob(4));
-            Items.setImage(cursor.getBlob(5));
-            Items.setDescripcion(cursor.getString(6));
+            Items.setImage(cursor.getInt(0));
+            Items.setDescripcion(cursor.getString(1));
 
             galeria.add(Items);
         }
@@ -80,11 +75,6 @@ public class GalleryActivity extends AppCompatActivity {
         for (int i = 0;  i < galeria.size(); i++){
 
             items.add(new Photograh(
-                    galeria.get(i).getId(),
-                    galeria.get(i).getName(),
-                    galeria.get(i).getHorafecha(),
-                    galeria.get(i).getFormato(),
-                    galeria.get(i).getSize(),
                     galeria.get(i).getImage(),
                     galeria.get(i).getDescripcion()));
         }

@@ -1,9 +1,11 @@
 package com.example.laboratorio1p2.tabla;
 
+import android.graphics.Bitmap;
+
 public class Photograh {
 
     private Integer id;
-    private byte[] image;
+    private Integer image;
     private String name;
     private String formato;
     private String descripcion;
@@ -13,6 +15,29 @@ public class Photograh {
 
     public  Photograh(){}
 
+    public Integer getImage() {
+        return image;
+    }
+
+    public void setImage(Integer image) {
+        this.image = image;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Photograh (Integer image, String descripcion) {
+
+        this.image = image;
+        this.descripcion = descripcion;
+
+    }
+    /*
     public Photograh (Integer id, String name, byte[] horafecha, String formato, byte[] size, byte[] image, String descripcion) {
         this.id = id;
         this.name = name;
@@ -23,6 +48,8 @@ public class Photograh {
         this.descripcion = descripcion;
 
     }
+
+
 
     public Integer getId() {
         return id;
@@ -79,5 +106,7 @@ public class Photograh {
     public void setHorafecha(byte[] horafecha) {
         this.horafecha = horafecha;
     }
+
+     */
 
 }

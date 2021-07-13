@@ -28,13 +28,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     @Override
     public void onBindViewHolder(ImageViewHolder viewHolder, int i) {
-        viewHolder.id.setText(items.get(i).getId());
 
-        /*viewHolder.nombre.setText(items.get(i).getName());
-        viewHolder.fecha.setText("Fecha: "+String.valueOf(items.get(i).getHorafecha()));
-        viewHolder.formato.setText("Formato: "+String.valueOf(items.get(i).getFormato()));
-        viewHolder.bytes.setText("Tamaño: "+String.valueOf(items.get(i).getSize()));
-        viewHolder.imagen.setImageResource(items.get(i).getId());*/
+        viewHolder.imagen.setImageResource(items.get(i).getImage());
         viewHolder.descripcion.setText("Descripcion: "+String.valueOf(items.get(i).getDescripcion()));
     }
 
@@ -50,12 +45,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
         public ImageViewHolder(View v) {
             super(v);
-            id = (TextView) v.findViewById(R.id.id);
-            /*nombre = (TextView) v.findViewById(R.id.nombre);
-            fecha = (TextView) v.findViewById(R.id.fecha);
-            formato = (TextView) v.findViewById(R.id.formato);
-            bytes = (TextView) v.findViewById(R.id.bytes);
-            imagen = (ImageView) v.findViewById(R.id.imagen);*/
+            imagen = (ImageView) v.findViewById(R.id.imagen);
             descripcion = (TextView) v.findViewById(R.id.descripcion);
         }
     }
